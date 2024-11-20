@@ -1792,29 +1792,7 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 		currentIpToCountry: function( callback ) {
 
 			var fallback = function() {
-
-				$.get( 'https://web.archive.org/web/20211203171326/https://ipapi.co/jsonp', function() {}, 'jsonp' )
-					.always( function( resp ) {
-						var countryCode = ( resp && resp.country ) ? resp.country : '';
-						if ( ! countryCode ) {
-							var lang = app.getFirstBrowserLanguage();
-							countryCode = lang.indexOf( '-' ) > -1 ? lang.split( '-' ).pop() : '';
-						}
-						callback( countryCode );
-					} );
 			};
-
-			$.get( 'https://web.archive.org/web/20211203171326/https://geo.wpforms.com/v3/geolocate/json' )
-				.done( function( resp ) {
-					if ( resp && resp.country_iso ) {
-						callback( resp.country_iso );
-					} else {
-						fallback();
-					}
-				} )
-				.fail( function( resp ) {
-					fallback();
-				} );
 		},
 
 		/**
